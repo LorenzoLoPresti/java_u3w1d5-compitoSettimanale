@@ -3,6 +3,8 @@ package PlayerMultimediale;
 import java.util.Scanner;
 
 public class LettoreMultimediale {
+	
+	public static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -56,9 +58,11 @@ public class LettoreMultimediale {
 			System.out.println(arrayElementi[i].titolo);
 		}
 		
+		play(arrayElementi);
 	
 	
 	}
+	
 	
 	public static ElementoMultimediale[] creaPlaylist() {
 		ElementoMultimediale[] array = new ElementoMultimediale[5];
@@ -66,11 +70,11 @@ public class LettoreMultimediale {
 		Immagine immagine;
 		int durata;
 		int counter = 0;
-		Scanner scanner = new Scanner(System.in);
+//		Scanner scanner = new Scanner(System.in);
 		
 		while(counter < 5) {
 			System.out.println("Seleziona tipo (img, audio o video)");
-			String tipo = scanner.nextLine();
+			String tipo = scanner.nextLine().toLowerCase();
 			switch(tipo) {
 			case "img":
 				System.out.println("Seleziona titolo elemento " + (counter + 1)+ ":");
@@ -93,12 +97,14 @@ public class LettoreMultimediale {
 				titolo = scanner.nextLine();
 				System.out.println("Seleziona durata elemento " + (counter + 1)+ ":");
 				durata = scanner.nextInt();
-				array[counter] = new Audio(titolo, durata);
+				array[counter] = new Video(titolo, durata);
 				counter++;
 				break;
 			default:
 			break;
 			}
+			
+			
 			
 		}
 		
@@ -110,13 +116,33 @@ public class LettoreMultimediale {
 	}
 	
 	public static void play(ElementoMultimediale[] array) {
-		Scanner scanner = new Scanner(System.in);
-		int numero = scanner.nextInt();
+//		Scanner scanner = new Scanner(System.in);
+		Immagine img;
+		Audio audio;
+		Video video;
+		
 		boolean play = true;
 		while(play) {
+			System.out.println("Seleziona elemento da 1 a 5 o chiudi con 0");
+			int numero = scanner.nextInt();
 			if (numero > 0 && numero <6) {
+				if(array[numero - 1] instanceof Immagine) {
+					img = (Immagine) array[numero - 1];
+					img.show();
+			
+				} else if(array[numero - 1] instanceof Audio) {
+					audio = (Audio) array[numero - 1];
+					audio.play();
 				
-			}
+				} else {
+					video = (Video) array[numero - 1];
+					video.play();
+				
+				}
+			} else if(numero == 0) {
+				play = false;
+			} 
+			
 		}
 	}
 
