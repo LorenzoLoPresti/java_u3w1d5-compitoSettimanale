@@ -72,7 +72,7 @@ public class LettoreMultimediale {
 		int counter = 0;
 //		Scanner scanner = new Scanner(System.in);
 		
-		while(counter < 5) {
+		while(counter < array.length) {
 			System.out.println("Seleziona tipo (img, audio o video)");
 			String tipo = scanner.nextLine().toLowerCase();
 			switch(tipo) {
@@ -125,7 +125,7 @@ public class LettoreMultimediale {
 		while(play) {
 			System.out.println("Seleziona elemento da 1 a 5 o chiudi con 0");
 			int numero = scanner.nextInt();
-			if (numero > 0 && numero <6) {
+			if (numero > 0 && numero <array.length + 1) {
 				if(array[numero - 1] instanceof Immagine) {
 					img = (Immagine) array[numero - 1];
 					img.show();
