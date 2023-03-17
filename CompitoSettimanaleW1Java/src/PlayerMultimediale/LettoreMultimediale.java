@@ -88,6 +88,7 @@ public class LettoreMultimediale {
 				titolo = scanner.nextLine();
 				System.out.println("Seleziona durata elemento " + (counter + 1)+ ":");
 				durata = scanner.nextInt();
+				scanner.nextLine();
 				array[counter] = new Audio(titolo, durata);
 				counter++;
 				break;
@@ -97,6 +98,7 @@ public class LettoreMultimediale {
 				titolo = scanner.nextLine();
 				System.out.println("Seleziona durata elemento " + (counter + 1)+ ":");
 				durata = scanner.nextInt();
+				scanner.nextLine();
 				array[counter] = new Video(titolo, durata);
 				counter++;
 				break;
@@ -120,8 +122,8 @@ public class LettoreMultimediale {
 		Immagine img;
 		Audio audio;
 		Video video;
-		
 		boolean play = true;
+		
 		while(play) {
 			System.out.println("Seleziona elemento da 1 a 5 o chiudi con 0");
 			int numero = scanner.nextInt();
