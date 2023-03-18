@@ -5,6 +5,9 @@ import java.util.Scanner;
 public class LettoreMultimediale {
 	
 	public static Scanner scanner = new Scanner(System.in);
+	public static Immagine img;
+	public static Audio audio;
+	public static Video video;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -52,6 +55,8 @@ public class LettoreMultimediale {
 //		
 //		img.play();
 		
+		
+		
 		ElementoMultimediale[] arrayElementi = creaPlaylist();
 		
 		for(int i = 0; i < arrayElementi.length; i++) {
@@ -59,7 +64,10 @@ public class LettoreMultimediale {
 		}
 		
 		play(arrayElementi);
-	
+		
+//		funzioneControlloScanner();
+		
+		
 	
 	}
 	
@@ -67,13 +75,12 @@ public class LettoreMultimediale {
 	public static ElementoMultimediale[] creaPlaylist() {
 		ElementoMultimediale[] array = new ElementoMultimediale[5];
 		String titolo;
-		Immagine immagine;
 		int durata;
 		int counter = 0;
 //		Scanner scanner = new Scanner(System.in);
 		
 		while(counter < array.length) {
-			System.out.println("Seleziona tipo (img, audio o video)");
+			System.out.println("Seleziona tipo (img, audio o video) del file " + (counter + 1));
 			String tipo = scanner.nextLine().toLowerCase();
 			switch(tipo) {
 			case "img":
@@ -87,7 +94,7 @@ public class LettoreMultimediale {
 				System.out.println("Seleziona titolo elemento " + (counter + 1)+ ":");
 				titolo = scanner.nextLine();
 				System.out.println("Seleziona durata elemento " + (counter + 1)+ ":");
-				durata = scanner.nextInt();
+				durata = funzioneControlloScanner("");
 				scanner.nextLine();
 				array[counter] = new Audio(titolo, durata);
 				counter++;
@@ -97,7 +104,7 @@ public class LettoreMultimediale {
 				System.out.println("Seleziona titolo elemento " + (counter + 1)+ ":");
 				titolo = scanner.nextLine();
 				System.out.println("Seleziona durata elemento " + (counter + 1)+ ":");
-				durata = scanner.nextInt();
+				durata = funzioneControlloScanner("");
 				scanner.nextLine();
 				array[counter] = new Video(titolo, durata);
 				counter++;
@@ -106,9 +113,8 @@ public class LettoreMultimediale {
 			break;
 			}
 			
-			
-			
 		}
+		
 		
 //		for(int i = 0; i < array.length; i++) {
 //			System.out.println(array[i].titolo);
@@ -119,14 +125,15 @@ public class LettoreMultimediale {
 	
 	public static void play(ElementoMultimediale[] array) {
 //		Scanner scanner = new Scanner(System.in);
-		Immagine img;
-		Audio audio;
-		Video video;
+//		Immagine img;
+//		Audio audio;
+//		Video video;
 		boolean play = true;
 		
 		while(play) {
 			System.out.println("Seleziona elemento da 1 a 5 o chiudi con 0");
-			int numero = scanner.nextInt();
+			int numero = funzioneControlloScanner("da 1 a 5 o chiudi con 0");
+			scanner.nextLine();
 			if (numero > 0 && numero <array.length + 1) {
 				if(array[numero - 1] instanceof Immagine) {
 					img = (Immagine) array[numero - 1];
@@ -146,6 +153,19 @@ public class LettoreMultimediale {
 			} 
 			
 		}
+	}
+	
+	// funzione per evitare errori scanner
+	
+	public static int funzioneControlloScanner(String valore) {
+		int sc;
+		while(!scanner.hasNextInt()) {
+			System.out.println("Inserisci un valore numerico " + valore);
+			scanner.nextLine();
+		}
+		
+		sc = scanner.nextInt();	
+		return sc;
 	}
 
 }
